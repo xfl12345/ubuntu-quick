@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+last --ip -a | sort | grep still
+

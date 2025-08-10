@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+#glances -1 -b --sort-processes cpu_percent --disable-webui --disable-plugin smart,irq,cloud,alert $@
+glances -1 -b --disable-webui $@
+

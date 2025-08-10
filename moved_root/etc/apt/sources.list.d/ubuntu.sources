@@ -1,0 +1,17 @@
+Types: deb deb-src
+URIs: https://mirrors.aliyun.com/ubuntu-ports/ http://ports.ubuntu.com/ubuntu-ports/
+Suites: noble noble-updates noble-security noble-backports
+Components: main restricted universe multiverse
+Signed-By: /usr/share/keyrings/ubuntu-archive-keyring.gpg
+
+# deb http://ports.ubuntu.com/ noble main restricted universe multiverse
+## deb-src http://ports.ubuntu.com/ noble main restricted universe multiverse
+#
+# deb http://ports.ubuntu.com/ noble-security main restricted universe multiverse
+## deb-src http://ports.ubuntu.com/ noble-security main restricted universe multiverse
+#
+# deb http://ports.ubuntu.com/ noble-updates main restricted universe multiverse
+## deb-src http://ports.ubuntu.com/ noble-updates main restricted universe multiverse
+#
+# deb http://ports.ubuntu.com/ noble-backports main restricted universe multiverse
+## deb-src http://ports.ubuntu.com/ noble-backports main restricted universe multiverse

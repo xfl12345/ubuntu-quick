@@ -1,0 +1,5 @@
+Types: deb
+URIs: https://pkgs.k8s.io/core:/stable:/v1.33/deb/
+Suites: /
+Components: 
+Signed-By: /usr/share/keyrings/kubernetes-apt-keyring.gpg

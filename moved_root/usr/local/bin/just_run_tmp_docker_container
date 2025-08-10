@@ -1,0 +1,85 @@
+#!/usr/bin/env bash
+
+is_ipv4_address() {
+    local _ip_address="$1"
+    # 定义IPv4正则表达式
+    regex='^([0-9]{1,3}\.){3}[0-9]{1,3}$'
+    if [[ $_ip_address =~ $regex ]]; then
+        # 初步匹配格式，再验证每段是否在0-255之间
+        IFS='.' read -r a b c d <<< "$_ip_address"
+        if (( a <= 255 && b <= 255 && c <= 255 && d <= 255 )); then
+            echo "yes"
+        fi
+    fi
+
+    echo "no"
+}
+
+is_ipv6_address() {
+    local _ip_address="$1"
+    # 正则表达式验证IPv6地址
+    regex='^(([0-9a-fA-F]{1,4}):){0,6}([0-9a-fA-F]{1,4}){0,1}(:[0-9a-fA-F]{1,4}){0,6}$'
+    if [[ $_ip_address =~ $regex ]]; then
+        # 进一步检查双冒号是否合法
+        if [[ $(echo "$ipv6" | grep -o "::" | wc -l) -gt 1 ]]; then
+            # 无效：双冒号(::)只能出现一次
+            echo "no"
+        elif [[ $ipv6 == *:::* && ($ipv6 == "::" || $ipv6 == ":::" || $ipv6 == *:::*) ]]; then
+            # 无效：双冒号不能单独在开头或结尾
+            echo "no"
+        else
+            echo "yes"
+        fi
+    fi
+
+    echo "no"
+}
+
+export -f is_ipv4_address
+export -f is_ipv6_address
+
+is_ip_address() {
+    local _ip_address="$1"
+    if [[ "$(is_ipv4_address $_ip_address)" == "yes" || "$(is_ipv6_address $_ip_address)" == "yes" ]]; then
+        echo "yes"
+    else
+        echo "no"
+    fi
+}
+
+export -f is_ip_address
+
+if [[ -z "$HTTP_PROXY"&& -z "$HTTPS_PROXY" ]]; then
+    docker run --rm -it debian bash
+else
+    the_proxy_host="$(echo "$HTTP_PROXY" | awk -F/ '{split($3, a, ":"); print a[1]}')"
+    # the_proxy_host_ip_address="$(resolvectl query $ttt | sed -n '/^[0-9]/p' | awk '{print $1}')"  # 仅 IPv4
+    add_host_params=""
+    if [[ "$the_proxy_host" == "127.0.0.1" || "$the_proxy_host" == "::1" || "$the_proxy_host" == "localhost" ]]; then
+        add_host_params="${the_proxy_host}:host-gateway"
+    fi
+
+    run_with_no_proxy="no"
+    if [[ "$(is_ip_address $the_proxy_host)" == "no" ]]; then
+        the_proxy_host_ip_address="$(dig +short "$the_proxy_host" A 2>/dev/null | grep -v '^;$' | head -n 1)"
+        if [[ -z "$the_proxy_host_ip_address" ]]; then
+            run_with_no_proxy="yes"
+        else
+            if [[ "$the_proxy_host" == "127.0.0.1" || "$the_proxy_host" == "::1" ]]; then
+                add_host_params="${the_proxy_host}:host-gateway"
+            else
+                add_host_params="${the_proxy_host}:${the_proxy_host_ip_address}"
+            fi
+        fi
+    fi
+
+    if [[ "$run_with_no_proxy" == "yes" ]]; then
+        docker run --rm -it ubuntu bash
+    else
+        if [[ -z "$add_host_params" ]]; then
+            docker run --rm -it -e HTTP_PROXY -e HTTPS_PROXY -e NO_PROXY ubuntu bash
+        else
+            docker run --rm -it -e HTTP_PROXY -e HTTPS_PROXY -e NO_PROXY --add-host "$add_host_params" ubuntu bash
+        fi
+    fi
+fi

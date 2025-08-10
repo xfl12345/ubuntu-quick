@@ -1,0 +1,7 @@
+Types: deb
+URIs: https://mirrors.aliyun.com/armbian https://mirrors.jevincanders.net/armbian/apt https://apt.armbian.com
+Suites: noble
+Components: main noble-utils noble-desktop
+Signed-By: /usr/share/keyrings/armbian.gpg
+
+# deb [signed-by=/usr/share/keyrings/armbian.gpg] http://apt.armbian.com noble main noble-utils noble-desktop

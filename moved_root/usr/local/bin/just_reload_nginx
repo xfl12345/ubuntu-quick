@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+docker exec -it nginx /bin/bash -c "nginx -t && nginx -s reload"
+
+

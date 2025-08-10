@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+#truncate -s 0 $(docker inspect --format='{{.LogPath}}' $1)
+# echo -e "\n" > $(docker inspect --format='{{.LogPath}}' $1)
+echo "" > $(docker inspect --format='{{.LogPath}}' $1)
+

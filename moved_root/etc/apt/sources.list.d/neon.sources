@@ -1,0 +1,21 @@
+Enabled: yes
+Types: deb
+URIs: http://archive.neon.kde.org/stable
+Suites: noble
+Components: main
+Signed-By: /usr/share/keyrings/neon.gpg
+
+Enabled: yes
+Architectures: all
+Types: deb
+URIs: https://mirror.iscas.ac.cn/kde-neon/user/ https://mirrors.bfsu.edu.cn/kde-neon/user/
+Suites: noble
+Components: main
+Signed-By: /usr/share/keyrings/neon.gpg
+
+#Types: deb deb-src
+#URIs: http://archive.neon.kde.org/testing
+#URIs: http://archive.neon.kde.org/stable
+# AMD64 URIs: https://mirror.iscas.ac.cn/kde-neon/user/ https://mirrors.bfsu.edu.cn/kde-neon/user/ http://archive.neon.kde.org/stable
+
+# deb [signed-by=/usr/share/keyrings/neon.gpg] http://archive.neon.kde.org/testing noble main

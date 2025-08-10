@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# $1 the remote host
+# $2 the path to copy
+__the_remote_host="$1"
+__the_src_path="$2"
+__the_dest_path="$__the_src_path"
+__clean_dir="$(dirname "$__the_src_path")"
+# 提取最后一个 / 后的内容
+__filename=${__the_src_path##*/}
+if [[ "$__filename" == *"*"* ]]; then
+    __the_dest_path="${__clean_dir}/"
+fi
+
+__parent_path="${__the_dest_path}"
+if [[ ! -d "${__parent_path}" ]]; then
+    __parent_path="$(dirname "$__parent_path")"
+fi
+
+__cmd="mkdir -p ${__parent_path}"
+echo "CMD[${__cmd}]"
+eval "${__cmd}"
+
+__cmd="scp -rvp ${__the_remote_host}:${__the_src_path} ${__the_dest_path}"
+echo "CMD[${__cmd}]"
+eval "${__cmd}"

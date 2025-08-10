@@ -1,0 +1,5 @@
+Types: deb
+URIs: https://repo.waydro.id/
+Suites: noble
+Components: main
+Signed-By: /usr/share/keyrings/waydroid.gpg
