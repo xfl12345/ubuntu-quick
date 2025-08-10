@@ -34,13 +34,29 @@ if [ "$BASH" ]; then
                 . /etc/bash_completion
             fi
 
-            command -v kubectl &> /dev/null && source <(kubectl completion bash)
-            command -v helm &> /dev/null && source <(helm completion bash)
-            command -v cilium &> /dev/null && source <(cilium completion bash)
-            command -v minikube &> /dev/null && source <(minikube completion bash)
-            command -v kind &> /dev/null && source <(kind completion bash)
-            command -v kustomize &> /dev/null && source <(kustomize completion bash)
-            command -v k3s &> /dev/null && source <(k3s completion bash)
+            __xfl_detect_command_completion_common_setup() {
+                __tmp_cmd_name="$1"
+                command -v "${__tmp_cmd_name}" &> /dev/null && source <($__tmp_cmd_name completion bash)
+            }
+
+            __xfl_detect_command_completion_common_setup kubectl
+            __xfl_detect_command_completion_common_setup helm
+            __xfl_detect_command_completion_common_setup cilium
+            __xfl_detect_command_completion_common_setup minikube
+            __xfl_detect_command_completion_common_setup kind
+            __xfl_detect_command_completion_common_setup kustomize
+            __xfl_detect_command_completion_common_setup k3s
+            __xfl_detect_command_completion_common_setup pnpm
+
+            unset __xfl_detect_command_completion_common_setup
+
+            command -v uv &> /dev/null && source <(uv generate-shell-completion bash)
+            if command -v register-python-argcomplete &> /dev/null; then
+                if command -v pipx &> /dev/null; then
+                    source <(uregister-python-argcomplete pipx)
+                fi
+            fi
+
         fi
     }
     export -f XFL_BASH_INIT_FUNC
