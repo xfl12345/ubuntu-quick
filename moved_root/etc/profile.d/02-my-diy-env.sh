@@ -53,7 +53,7 @@ if [ "$BASH" ]; then
             command -v uv &> /dev/null && source <(uv generate-shell-completion bash)
             if command -v register-python-argcomplete &> /dev/null; then
                 if command -v pipx &> /dev/null; then
-                    source <(uregister-python-argcomplete pipx)
+                    source <(register-python-argcomplete pipx)
                 fi
             fi
 
