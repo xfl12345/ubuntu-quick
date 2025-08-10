@@ -50,6 +50,7 @@ if [ "$BASH" ]; then
 
             unset __xfl_detect_command_completion_common_setup
 
+            command -v jbang &> /dev/null && source <(jbang completion -o)
             command -v uv &> /dev/null && source <(uv generate-shell-completion bash)
             if command -v register-python-argcomplete &> /dev/null; then
                 if command -v pipx &> /dev/null; then
