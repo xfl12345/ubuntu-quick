@@ -1,0 +1,4 @@
+Package: cockpit*
+Pin: origin "archive.ubuntu.com", release n=noble-backports
+Pin-Priority: 990
+
