@@ -32,6 +32,8 @@ if [ "$BASH" ]; then
         if [[ ( $- == *i* || -n "$PS1" ) || -n "$VSCODE_IPC_HOOK_CLI" ]]; then
             if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
                 . /etc/bash_completion
+            else
+                return 1;
             fi
 
             __xfl_detect_command_completion_common_setup() {
