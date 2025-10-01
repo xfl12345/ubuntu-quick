@@ -10,7 +10,7 @@ export HTTPS_PROXY="$https_proxy"
 export HTTP_PROXY="$http_proxy"
 export NO_PROXY="$no_proxy"
 
-if [ "$BASH" ]; then
+if [ "$BASH_VERSION" ]; then
     if [[ "$PATH" == *"/usr/local/bin"* ]]; then
         export PATH="${PATH}:/usr/local/bin"
     fi
