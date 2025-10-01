@@ -63,6 +63,12 @@ if [ "$BASH" ]; then
     }
     export -f XFL_BASH_INIT_FUNC
 
+    if [ ! -e ~/.profile ]; then
+        if [ -f ~/.bashrc ]; then
+            . ~/.bashrc
+        fi
+    fi
+
     ## 食用姿势
     ## 添加如下代码到  ~/.bashrc
     # if declare -F XFL_BASH_INIT_FUNC > /dev/null 2>&1; then
