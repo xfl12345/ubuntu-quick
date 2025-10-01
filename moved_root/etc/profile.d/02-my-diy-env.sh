@@ -75,6 +75,9 @@ if [ "$BASH_VERSION" ]; then
     ## 添加如下代码到  ~/.bashrc
     # if declare -F XFL_BASH_INIT_FUNC > /dev/null 2>&1; then
     #     XFL_BASH_INIT_FUNC
+    # elif [[ $TERMINAL_EMULATOR == JetBrains* ]]; then
+    #     source /etc/profile
+    #     source ~/.bashrc
     # fi
 fi
 
