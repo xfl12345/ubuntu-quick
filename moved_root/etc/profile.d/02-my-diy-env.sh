@@ -53,6 +53,7 @@ if [ "$BASH_VERSION" ]; then
             unset __xfl_detect_command_completion_common_setup
 
             command -v jbang &> /dev/null && source <(jbang completion -o)
+            command -v quarkus &> /dev/null && source <(quarkus completion)
             command -v npm &> /dev/null && source <(npm completion)
             command -v uv &> /dev/null && source <(uv generate-shell-completion bash)
             if command -v register-python-argcomplete &> /dev/null; then
