@@ -1,8 +1,9 @@
 export LC_ALL="en_US.utf8"
 
-export all_proxy='socks5://fq.internal:7890'
-export https_proxy='http://fq.internal:7890'
-export http_proxy='http://fq.internal:7890'
+export MOFA_MIX_PROXY="${MOFA_MIX_PROXY:-mofa.internal:7890}"
+export all_proxy="socks5://${MOFA_MIX_PROXY}"
+export https_proxy="http://${MOFA_MIX_PROXY}"
+export http_proxy="http://${MOFA_MIX_PROXY}"
 export no_proxy='localhost,127.0.0.0/8,10.0.0.0/8,100.64.0.0/10,172.16.0.0/12,192.168.0.0/16,::1,fe80::/8,fd00::/8,internal,aliyuncs.com,aliyun.com,npmmirror.com'
 
 export ALL_PROXY="$all_proxy"
